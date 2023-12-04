@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Validator;
 
 class Exponencial
 {
@@ -15,21 +16,16 @@ class Exponencial
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
-    }
-
-    public function exponente($base, $exponente)
-    {
-        $validator = Validator::make(compact('base', 'exponente'), [
-            'base' => 'required|numeric|between:0,5',
-            'exponente' => 'required|numeric',
+        $num1 = $request->route('num1');
+        $num2 = $request->route('num2');
+        $validator = Validator::make(compact('num1', 'num2'), [
+            'num1' => 'required|integer|gt:0',
+            'num2' => 'required|integer|gt:0',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
-        $resultado = pow($base, $exponente);
-        return response()->json(compact('base', 'exponente', 'resultado'));
+        return $next($request);
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Middleware\Resta;
 use App\Http\Middleware\Multiplicacion;
 use App\Http\Middleware\Division;
 use App\Http\Middleware\Exponencial;
+use App\Http\Middleware\SetLocale;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,12 +27,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 use App\Http\Controllers\CalculatorController;
 
-Route::get('/suma/{num1}/{num2}', [CalculatorController::class, 'suma']) -> middleware([Suma::class]);
+Route::get('/suma/{num1}/{num2}', [CalculatorController::class, 'suma']) -> middleware([SetLocale::class, Suma::class]);
 
-Route::get('/resta/{num1}/{num2}', [CalculatorController::class, 'resta']) -> middleware([Resta::class]);
+Route::get('/resta/{num1}/{num2}', [CalculatorController::class, 'resta']) -> middleware([SetLocale::class, Resta::class]);
 
-Route::get('/multiplicacion/{num1}/{num2}', [CalculatorController::class, 'multiplicacion']) -> middleware([Multiplicacion::class]);
+Route::get('/multiplicacion/{num1}/{num2}', [CalculatorController::class, 'multiplicacion']) -> middleware([SetLocale::class, Multiplicacion::class]);
 
-Route::get('/division/{num1}/{num2}', [CalculatorController::class, 'division']) -> middleware([Division::class]);
+Route::get('/division/{num1}/{num2}', [CalculatorController::class, 'division']) -> middleware([SetLocale::class, Division::class]);
 
-Route::get('/exponente/{num1}/{num2}', [CalculatorController::class, 'exponente']) -> middleware([Exponencial::class]);
+Route::get('/exponente/{num1}/{num2}', [CalculatorController::class, 'exponente']) -> middleware([SetLocale::class, Exponencial::class]);
